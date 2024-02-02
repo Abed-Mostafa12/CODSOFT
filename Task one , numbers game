@@ -1,0 +1,71 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class main
+{
+    public static void main(String[] args) {
+        Random random = new Random();
+        int count = 0;
+        int anotherround = 0;
+        int givennum=0;
+        Scanner scans = new Scanner(System.in);
+            do {
+                count=0;
+               givennum= random.nextInt(100)+1;
+                System.out.println("you have 7 attempts to guess the number , the number is between 1 and 100  ");
+
+                while (count < 7) {
+                    if(!scans.hasNextInt()){
+                        System.out.println("wrong input");
+                    scans.next();
+                    }
+                    int userguess = scans.nextInt();
+                    if (userguess > 100 || userguess < 1) {
+                        System.out.println("i said that the number is between 1 and 100 ");
+                        continue;
+                    }
+                    if (userguess == givennum) {
+                        System.out.println("you guessed it your score is : " + (7 - count) + " over 7");
+                        System.out.println("would you like to play again ? press 1 if yes , 0 if no ");
+                        if (scans.nextInt() == 1) {
+                            anotherround = 1;
+                        }
+                        else {
+                            anotherround = 0;
+
+                        }
+                        break;
+                    } else if (userguess > givennum) {
+                        System.out.println("too high");
+                        count++;
+
+                    } else if (userguess < givennum) {
+                        System.out.println("too low");
+                        count++;
+                    }
+                    else {
+                        System.out.println(" this is not a number ");
+                        break;
+                    }
+                    if (count >= 7) {
+                        System.out.println("you lost ");
+                        System.out.println("The correct number was " + givennum);
+                        System.out.println("would you like to play again ? press 1 if yes , 0 if no ");
+                        if (scans.nextInt() == 1) {
+                            anotherround = 1;
+                        }
+                        else {
+                            anotherround = 0;
+                        }
+                        break;
+                    }
+
+                }
+                if (anotherround==0){
+                    break;
+                }
+            }
+
+            while (anotherround == 1);
+    }
+}
