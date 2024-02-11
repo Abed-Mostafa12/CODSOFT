@@ -1,0 +1,92 @@
+public class BankAccount {
+    protected double balance;
+
+    public BankAccount(double balance) {
+        this.balance = balance;
+    }
+}
+import java.util.Scanner;
+
+public class ATMmachine {
+BankAccount bankAccount ;
+
+    public ATMmachine(BankAccount userAccount) {
+        bankAccount=userAccount;
+    }
+
+    public void displaymenu() {
+        System.out.println("ATM Menu:");
+        System.out.println("1. Check Balance");
+        System.out.println("2. Deposit");
+        System.out.println("3. Withdraw");
+        System.out.println("4. Exit");
+    }
+    public void withdraw (double balance) {
+        if (bankAccount.balance > balance) {
+            bankAccount.balance -= balance;
+            System.out.println(balance + " was succesfully withdrawn from your account");
+        } else {
+            System.out.println("you don't have enough balance ");
+        }
+    }
+    public void deposit (double balance){
+            bankAccount.balance+=balance;
+            System.out.println(balance +" was succesfully added to your account");
+    }
+    public void checkBalance(){
+
+        System.out.println("your balance is : "+ bankAccount.balance);
+    }
+public void performtransaction(int choice){
+    Scanner scanner = new Scanner(System.in);
+
+    switch (choice){
+            case 1:
+                checkBalance();
+                break;
+            case 2:
+                System.out.println("How much do you want to deposit ");
+
+                deposit(scanner.nextDouble());
+                break;
+        case 3:
+            System.out.println("how much do you want to withdraw ");
+
+            withdraw(scanner.nextDouble());
+            break;
+        case 4:
+            System.out.println("Exiting ATM. Thank you!");
+            System.exit(0);
+            break;
+
+        default:
+            System.out.println("wrong input");
+            ;
+        }
+
+}
+}
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class main {
+    public static void main(String[] args) {
+        BankAccount userAccount = new BankAccount(1000.0);
+        ATMmachine atm = new ATMmachine(userAccount);
+
+        while (true) {
+            atm.displaymenu();
+
+            Scanner scanner = new Scanner(System.in);
+
+            try {
+                System.out.print("Enter your choice (1-4): ");
+                int choice = scanner.nextInt();
+                atm.performtransaction(choice);
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine();
+            }
+        }
+    }
+}
